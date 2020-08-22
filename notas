@@ -1,0 +1,42 @@
+manejo de librerias
+css
+wp_register_style($handle, $src, $deps, $ver, $media)
+wp_enqueue_style()
+
+Manejo de Librerías en WordPress
+
+Las librerías en WordPress las podemos manejar de diferentes tipos y para cada uno de ellos los vamos a utilizar de manera diferente.
+
+Para los archivos CSS vamos a usar dos funciones, estas están basadas en dos tipos de formas para manejar la información en WordPress:
+wp_register_style(): En esta es el registro. Nos sirve para registrarnos en librería y que la tengamos a disposición con una dependencia pero no las va a ejecutar en nuestro HTML. Recibe 5 argumentos:
+$handle string: el nombre que va a tener nuestra librería para wordpress
+$src string or $src boll: Determinar de donde es la fuente de nuestro archivo. En source Podemos recibir bool porque podemos llamar todas las dependencias que nosotros necesitamos sin crear una nueva, es decir, si nosotros tenemos registrado Bootstrap, podemos llamar a boottrap, pasar bool en vez de string en el source y recibir solamente Bootstrap. Estos es como un alias para hacer un conjunto de librerías sin llamar una nueva
+$deps=array()array: las dependencias van a ser un array de strings que vamos a poner los nombres o handeles que fuimos registrando previamente, si tenemos alguno o directamente a registrarlo si tenemos uno nuevo
+$ver=string or $ver=bool or $ver=null: estos son importantes si tenemos una versión de cache para poder decirle a nuestro navegador que regenere el pedido en caso de querer hacer modificaciones
+$media=’all’string: Nos permite que nuestro ccs se pueda ejecutar en todos lados o en una resolución especifica o en un dispositivo especifico
+
+wp_enqueque_style(): En esta es el poner en cola. Nos va a ejecutar directamente la librería que nosotros le digamos, pero va a llamar las referencias sin necesitar alguna que tengamos registradas. Esta también va a recibir los mismos argumentos pero la ejecución va a ser directamente en vez de registrarlos, dejarla a disposición ya ejecutado en nuestro HTML.
+
+En Javascrip:
+wp_register_style(): En esta es el registro. Nos sirve para registrarnos en librería y que la tengamos a disposición con una dependencia pero no las va a ejecutar en nuestro HTML. Recibe 5 argumentos:
+$handle string: el nombre que va a tener nuestra librería para wordpress
+$src string or $src boll: Determinar de donde es la fuente de nuestro archivo. En source Podemos recibir bool porque podemos llamar todas las dependencias que nosotros necesitamos sin crear una nueva, es decir, si nosotros tenemos registrado Bootstrap, podemos llamar a boottrap, pasar bool en vez de string en el source y recibir solamente Bootstrap. Estos son como un alias para hacer un conjunto de librerías sin llamar una nueva
+$deps=array()array: las dependencias van a ser un array de strings que vamos a poner los nombres o handeles que fuimos registrando previamente, si tenemos alguno o directamente a registrarlo si tenemos uno nuevo. (Las dependencias que necesita ejecutarse antes de ejecutar ese archivo JavaScrip)
+$ver=string or $ver=bool or $ver=null: estos son importantes si tenemos una versión de cache para poder decirle a nuestro navegador que regenere el pedido en caso de querer hacer modificaciones
+$in_footer=falsebool: Este es el único argumento diferente que podemos de cirle que se ejecute en el footer o que se ejecute en el head.
+
+¿Por qué manejar las librerías de forma dinámica?
+Nos van a permitir utilizar nuestros templates en diferentes sitios, diferentes urls, en las cuales nosotros tengamos nuestras propias librerías en ellas. En el momento en que nosotros cambiamos de sitio esas urls se van a generar automáticamente y van a llamar a ese archivo. Además el uso de registro de dependencias nos permite controlar con PHP el flujo en las cuales se cargan las diferentes librerías y evita problemas como generar librerías duplicadas
+
+
+
+crear themas:
+
+la estructura basica es 
+/
+  footer.php 
+  header.php 
+  index.php
+  style.css // aqui se declara el thema 
+  functions.php
+
