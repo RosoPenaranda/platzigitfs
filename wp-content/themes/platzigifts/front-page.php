@@ -17,6 +17,10 @@
             'post_per_page' => -1,
             'order' => 'ASC',
             'orderby' => 'title'
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5c1937360ebaeecf77b78f21dc89ad29ed813a4e
           );
           $productos = new WP_Query($args);
 
