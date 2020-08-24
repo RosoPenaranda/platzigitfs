@@ -15,7 +15,8 @@
           $args = array(
             'post_type' => 'producto',
             'post_per_page' => -1,
-            'order' =>
+            'order' => 'ASC',
+            'orderby' => 'title'
 
           );
           $productos = new WP_Query($args);
