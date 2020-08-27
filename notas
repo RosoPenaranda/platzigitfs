@@ -40,3 +40,17 @@ la estructura basica es
   style.css // aqui se declara el thema 
   functions.php
 
+
+
+//// taxonomias
+son agrupamientos de terminos
+  categoria: orden gerarquico
+  etiquetas: solo contienen contenidos
+
+/// terminos
+
+agrupamietno de contenidos 
+
+
+las taxonomias se abren en el archive.php al menos que tenga un documento
+especifico category-name.php tag-name.php

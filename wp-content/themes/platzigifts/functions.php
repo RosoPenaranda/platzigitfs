@@ -32,6 +32,10 @@ function assets(){
 
   wp_enqueue_script( 'custom', get_template_directory_uri().'/assets/js/custom.js', '', '1.0', true );
 
+  wp_localize_script( 'custom', 'pg', array(
+    'ajaxurl' => admin_url('admin-ajax.php')
+  ) );
+
 }
 //  el hoock wp_enqueue se ejecuta al inicio de la carga de la pagina
 add_action( 'wp_enqueue_scripts', 'assets');
@@ -78,3 +82,57 @@ function productos_type(){
 
 add_action( 'init', 'productos_type');
 
+function pgRegisterTax(){
+  $args = array(
+    'hierarchical' => true,
+    'labels' => array(
+      'name' => 'Categorías de Productos',
+      'singular_name' => 'Categoría de Productos'
+    ),
+    'show_in_nav_menu' => true, 
+    'show_admin_column' => true,
+    'rewrite' => array('slug' => 'categoria-productos')
+  );
+  register_taxonomy( 'categoria-productos', array('producto'), $args );
+}
+
+add_action( 'init', 'pgRegisterTax');
+
+function pgFiltroProductos(){
+  $args = array(
+    'post_type' => 'producto',
+    'post_per_page' => -1,
+    'order' => 'ASC',
+    'orderby' => 'title',
+    'post__not_in' => array($post->ID)
+  );
+
+  if($_POST['categoria']){
+    $args['tax_query'] = array(
+      array(
+        'taxonomy' => 'categoria-productos',
+        'field' => 'slug',
+        'terms' => $_POST['categoria']
+      )
+    );
+  }
+
+  $productos = new WP_Query($args);
+
+  if($productos->have_posts()){
+    $return = array();
+    while($productos->have_posts()){
+      $productos->the_post();
+      $return[] = array(
+        'imagen' => get_the_post_thumbnail( get_the_id(), 'large' ),
+        'link' => get_the_permalink(),
+        'titulo' => get_the_title()
+      );
+    }
+
+    wp_send_json($return);
+  }
+}
+
+add_action( "wp_ajax_nopriv_pgFiltroProductos", "pgFiltroProductos");
+add_action( "wp_ajax_pgFiltroProductos", "pgFiltroProductos");

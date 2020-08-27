@@ -27,6 +27,7 @@ services:
       - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD=qpwoeiru
       - WORDPRESS_DB_HOST=mysql
+      - WORDPRESS_DEBUG=1
     ports:
       - 8088:80
 

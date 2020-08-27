@@ -15,10 +15,10 @@
           <?php the_content(); ?>
         </div>
     </div>
-
+  <?php get_template_part( 'template-parts/post', 'navigation'); ?>
   <?php      
-      }
-    }
+      }//fin while
+    }//fin if
   ?>
 </main>
 <?php get_footer();
@@ -29,3 +29,5 @@ large ------- 1024 x 1024 PX
 full ----- La resolución original de la imagen cuando la subimos
 */
 ?>
+
+
